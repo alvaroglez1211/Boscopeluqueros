@@ -2,11 +2,8 @@
 
 Web estática (HTML + CSS, sin dependencias). Abre `index.html` en el navegador para verla.
 
-## Qué hay que rellenar
-Busca `EDITAR` en `index.html`:
-
-- `34600000000` → número de WhatsApp con prefijo 34, sin espacios (y el `600 00 00 00` visible)
-- Fotos: guarda `img/foto-local.jpg`, `img/foto-corte.jpg` y `img/foto-barba.jpg`. Aparecen solas; si falta alguna, se ve el hueco rayado.
+## Fotos
+Guarda `img/foto-local.jpg`, `img/foto-corte.jpg` y `img/foto-barba.jpg` y aparecen solas. Si falta alguna, se ve el hueco rayado. Los prompts están en `marca/PROMPTS.md`.
 
 ## Marca
 - `marca/index.html`: manual de marca con logos, colores, tipografías y reglas

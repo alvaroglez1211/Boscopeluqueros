@@ -2,7 +2,7 @@ import math, os
 from fontTools.ttLib import TTFont
 from fontTools.pens.svgPathPen import SVGPathPen
 from fontTools.pens.transformPen import TransformPen
-F = os.path.dirname(__file__) + '/fonts/'  # descarga Archivo (Extra Condensed 800, 500; Normal 500, 600) de Google Fonts aquí
+F = os.path.dirname(__file__) + '/fonts/'
 OUT = '/home/user/Boscopeluqueros/marca/'
 INK, PAPER, RED, BLUE = '#1b1916', '#efe9df', '#b3322a', '#24407a'
 _c = {}
@@ -110,9 +110,8 @@ def seal(fg, bgc, uid):
     bot = bottom_text('norm-600.ttf', 'TRIANA · SEVILLA', 30, c, c, 232, ls=8)
     body += f'<path d="{bot}" fill="{fg}"/>'
     # stars/dots separating
-    for a in (180, 0):
-        x = c + 228 * math.cos(math.radians(a)); y = c + 228 * math.sin(math.radians(a))
-        body += f'<circle cx="{x:.1f}" cy="{y:.1f}" r="7" fill="{RED}"/>'
+    for t, x in (('20', c - 229), ('04', c + 229)):
+        body += f'<path d="{text("cond-800.ttf", t, 34, x, c + 12, anchor="middle")}" fill="{fg}"/>'
     # center: B + pole
     S = 240; capH = S * 0.71; bw = adv('cond-800.ttf', 'B', S); pw = S * 0.16; gap = S * 0.035
     tot = bw + gap + pw; bx = c - tot / 2; base = c + capH / 2
