@@ -46,7 +46,7 @@ for (const m of html.matchAll(/<img [^>]*>/g)) {
   ok(/ alt="/.test(m[0]), `Imagen sin alt: ${m[0]}`);
   ok(/ width="\d+"/.test(m[0]) && / height="\d+"/.test(m[0]) || /marca-img/.test(m[0]), `Imagen sin dimensiones: ${m[0]}`);
 }
-ok(!/class="ph|placeholder|repeating-linear-gradient/.test(html + css), 'Quedan placeholders rayados.');
+ok(!/class="ph[ "]|placeholder|repeating-linear-gradient/.test(html + css), 'Quedan placeholders rayados.');
 
 // Datos estructurados: sin valoraciones ni precios
 const ld = JSON.parse(html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1]);
@@ -58,12 +58,14 @@ const hex = (h) => h.match(/\w\w/g).map((x) => parseInt(x, 16) / 255).map((c) =>
 const lum = (h) => { const [r, g, b] = hex(h.replace('#', '')); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
 const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); };
 const pares = [
-  ['#101D33', '#F2EBDD', 4.5, 'marino sobre crema'],
-  ['#605D57', '#F2EBDD', 4.5, 'texto secundario sobre crema'],
-  ['#605D57', '#FAF6EF', 4.5, 'texto secundario sobre superficie'],
-  ['#A43B29', '#F2EBDD', 4.5, 'teja sobre crema'],
-  ['#F2EBDD', '#101D33', 4.5, 'crema sobre marino'],
-  ['#F2EBDD', '#A43B29', 4.5, 'crema sobre teja (hover de botón)'],
+  ['#1b1916', '#efe9df', 4.5, 'tinta sobre papel'],
+  ['#5c564e', '#efe9df', 4.5, 'texto secundario sobre papel'],
+  ['#9a2f1f', '#efe9df', 4.5, 'rojo sobre papel'],
+  ['#efe9df', '#1b1916', 4.5, 'papel sobre tinta'],
+  ['#cfc7ba', '#1b1916', 4.5, 'texto claro sobre tinta'],
+  ['#b5ad9f', '#1b1916', 4.5, 'subtexto sobre tinta'],
+  ['#e0806e', '#1b1916', 4.5, 'rojo claro sobre tinta (hover)'],
+  ['#efe9df', '#9a2f1f', 4.5, 'papel sobre rojo (hover de botón)'],
 ];
 const informe = pares.map(([a, b, min, n]) => { const r = ratio(a, b); ok(r >= min, `Contraste insuficiente (${n}): ${r.toFixed(2)}`); return `  ${n}: ${r.toFixed(2)}:1`; });
 

@@ -94,8 +94,8 @@ export default {
   },
 
   marca: {
-    // Cuando exista el logotipo vectorial definitivo, pon aquí sus rutas.
-    // Mientras sean null, se usa la composición tipográfica provisional.
+    // Cuando exista un logotipo en SVG, pon aquí sus rutas.
+    // Mientras sean null, se usa el nombre en texto («BOSCO peluqueros»).
     logoCompleto: null,        // ej.: 'marca/bosco-logo.svg'
     logoCompleto_crema: null,  // versión clara para fondos marino
     logoCompacto: null,        // versión de cabecera

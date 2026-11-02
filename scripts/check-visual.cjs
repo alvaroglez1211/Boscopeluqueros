@@ -44,15 +44,15 @@ const anchos = [360, 390, 768, 1024, 1440];
     await p.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
     await p.waitForTimeout(350);
     const tapa = await p.evaluate(() => {
-      const barra = document.getElementById('barra-movil'); const pie = document.querySelector('.pie__in');
+      const barra = document.getElementById('barra-movil'); const pie = document.querySelector('.foot');
       if (!barra || getComputedStyle(barra).display === 'none') return null;
       const rb = barra.getBoundingClientRect(); const ultimo = [...pie.children].pop().getBoundingClientRect();
       return ultimo.bottom > rb.top + 1 ? 'la barra inferior tapa el pie' : null;
     });
     // Destinos de anclas no quedan bajo la cabecera fija
     const anclas = await p.evaluate(async () => {
-      const out = []; const cab = document.querySelector('.cabecera');
-      for (const a of document.querySelectorAll('.cabecera__nav a')) {
+      const out = []; const cab = document.querySelector('.top');
+      for (const a of document.querySelectorAll('.top__nav a')) {
         const t = document.querySelector(a.getAttribute('href'));
         t.scrollIntoView({ behavior: 'instant' }); await new Promise((r) => setTimeout(r, 50));
         const fija = getComputedStyle(cab).position === 'sticky';

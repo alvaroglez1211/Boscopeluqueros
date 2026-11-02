@@ -1,24 +1,25 @@
 // Genera img/og-bosco.png (1200×630) e img/apple-touch-icon.png (180×180)
-// con la composición tipográfica provisional. Requiere Playwright instalado.
+// con el estilo de la web (tinta, papel y Archivo estrecha). Requiere Playwright instalado.
 // Uso: node scripts/generar-imagenes.cjs
 const { chromium } = require('playwright');
 const path = require('path');
 const fs = require('fs');
 const raiz = path.join(__dirname, '..');
 const css = `
-@font-face{font-family:T;src:url(${raiz}/fonts/roboto-serif-condensed-800.woff2);font-weight:800}
+@font-face{font-family:T;src:url(${raiz}/fonts/archivo-condensed-800.woff2);font-weight:800}
 @font-face{font-family:S;src:url(${raiz}/fonts/archivo-400-600.woff2);font-weight:400 600}
-*{margin:0;box-sizing:border-box} body{background:#101D33;color:#F2EBDD;display:flex;align-items:center;justify-content:center;height:100vh;flex-direction:column;text-transform:uppercase;line-height:1}
-.n{font:800 var(--n) T;letter-spacing:.01em}
-.f{font:800 var(--f) T;letter-spacing:.32em;margin-right:-.32em;display:flex;align-items:center;gap:.55em;margin-top:.35em}
-.f:before,.f:after{content:"";width:1.6em;height:.12em;background:#A43B29}
-.d{font:600 var(--d) S;letter-spacing:.42em;margin-right:-.42em;margin-top:1.1em}
-.marco{position:fixed;inset:22px;border:1.5px solid rgba(242,235,221,.28)}`;
+@font-face{font-family:N;src:url(${raiz}/fonts/newsreader-italic.woff2);font-style:italic}
+*{margin:0;box-sizing:border-box} body{background:#1b1916;color:#efe9df;height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:56px 64px}
+.k{font:500 22px S;letter-spacing:.14em;text-transform:uppercase;color:#b5ad9f}
+.n{font:800 var(--n)/.82 T;text-transform:uppercase;letter-spacing:-.03em;margin:14px 0 22px -.04em}
+.r{display:flex;justify-content:space-between;align-items:baseline;border-top:2px solid #efe9df;padding-top:18px;font:400 30px S}
+.r em{font:italic 36px N;color:#e0806e}
+.c{display:flex;align-items:center;justify-content:center;padding:0}`;
 (async () => {
   const b = await chromium.launch();
   const jobs = [
-    ['og-bosco.png', 1200, 630, `<div class=marco></div><div class=n style="--n:170px">Bosco</div><div class=f style="--f:40px">Triana</div><div class=d style="--d:20px">Peluqueros</div>`],
-    ['apple-touch-icon.png', 180, 180, `<div class=n style="--n:120px">B</div>`],
+    ['og-bosco.png', 1200, 630, `<div class=k>Peluquería de caballeros · Triana, Sevilla</div><div class=n style="--n:300px">Bosco</div><div class=r><span>Calle Alfarería, 113</span><em>peluqueros</em></div>`],
+    ['apple-touch-icon.png', 180, 180, `<style>body{align-items:center;justify-content:center;padding:0}</style><div class=n style="--n:150px;margin:0">B</div>`],
   ];
   for (const [n, w, h, body] of jobs) {
     const p = await b.newPage({ viewport: { width: w, height: h } });

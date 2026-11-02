@@ -39,40 +39,30 @@ const tramosTexto = (t) => (t.length ? t.map(([a, b]) => `${a}–${b}`).join(' �
 
 // ── Bloques ───────────────────────────────────────────────────
 const foto = (f, { lazy = true, clase = '' } = {}) => `
-      <figure class="foto ${clase}">
+      <figure class="photo ${clase}">
         <picture>
           ${f.webp ? `<source srcset="${esc(f.webp)}" type="image/webp">` : ''}
           <img src="${esc(f.src)}" width="${f.ancho}" height="${f.alto}" alt="${esc(f.alt || '')}"${lazy ? ' loading="lazy" decoding="async"' : ' fetchpriority="high"'}${f.posicion ? ` style="object-position:${esc(f.posicion)}"` : ''}>
         </picture>
-        ${f.ilustrativa ? '<figcaption>Imagen ilustrativa, no corresponde al local.</figcaption>' : ''}
+        ${f.ilustrativa ? '<figcaption>Imagen ilustrativa</figcaption>' : ''}
       </figure>`;
 
-const portadaVisual = fotoPortada
-  ? foto(fotoPortada, { lazy: false, clase: 'portada__foto' })
-  : `
-      <div class="portada__rotulo" aria-hidden="true">
-        ${marca(d, { variante: 'completa', tono: 'crema' })}
-        <p class="portada__rotulo-dir">${esc(d.direccion.calle)}</p>
-      </div>`;
+// Fotos de la cuadrícula: la de portada (grande) y las del local, hasta 3.
+const fotosGrid = [fotoPortada, ...fotosLocal].filter(Boolean).slice(0, 3);
 
 const servicios = d.servicios.lista.map((s) => `
-          <li>
-            <span class="servicios__nombre">${esc(s.nombre)}${s.detalle ? ` <small>${esc(s.detalle)}</small>` : ''}</span>
-            ${precios && s.precio ? `<span class="servicios__precio">${esc(s.precio)}</span>` : ''}
-          </li>`).join('');
+      <li><span class="prices__name">${esc(s.nombre)}${s.detalle ? ` <small>${esc(s.detalle)}</small>` : ''}</span>${precios && s.precio ? `<span class="prices__dots" aria-hidden="true"></span><span class="prices__val">${esc(s.precio)}</span>` : ''}</li>`).join('');
 
 const filasHorario = horario ? horario.dias.map((h) => `
-            <tr data-dia="${h.dia}">
-              <th scope="row">${esc(h.nombre)}</th>
-              <td>${h.tramos.length ? h.tramos.map(([a, b]) => `<span>${a} – ${b}</span>`).join('') : 'Cerrado'}</td>
-            </tr>`).join('') : '';
+        <tr data-dia="${h.dia}"><th scope="row">${esc(h.nombre)}</th><td>${h.tramos.length ? h.tramos.map(([a, b]) => `${a} – ${b}`).join('<br>') : 'Cerrado'}</td></tr>`).join('') : '';
 
-const hechosLocal = `
-        <ul class="local__hechos">
-          <li><span class="num">—</span>${esc(d.tipo)}</li>
-          <li><span class="num">—</span>${esc(d.direccion.calle)}, ${esc(d.direccion.barrio)}</li>
-          <li><span class="num">—</span>Cita previa por Booksy</li>
-        </ul>`;
+// Opciones del bloque «¿Cómo pido cita?»: solo destinos reales y confirmados.
+const opciones = [
+  { label: 'Booksy', sub: 'Elige día y hora', attrs: ext(d.booksyUrl) },
+  ...(whatsappUrl ? [{ label: 'WhatsApp', sub: d.whatsapp.numero.replace(/^34/, '').replace(/(\d{3})(\d{3})(\d{3})/, '$1 $2 $3'), attrs: ext(whatsappUrl) }] : []),
+  ...(telefono ? [{ label: 'Teléfono', sub: telefono.texto, attrs: `href="tel:${esc(telefono.numero)}"` }] : []),
+  { label: 'Instagram', sub: `@${d.instagram.usuario}`, attrs: ext(d.instagram.url) },
+];
 
 // ── Datos estructurados (solo datos confirmados) ──────────────
 const ld = {
@@ -139,7 +129,7 @@ const html = `<!doctype html>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>${esc(d.sitio.titulo)}</title>
   <meta name="description" content="${esc(d.sitio.descripcion)}">
-  <meta name="theme-color" content="#101D33">
+  <meta name="theme-color" content="#1b1916">
   <meta name="robots" content="index, follow, max-image-preview:large">
   ${d.sitio.googleVerificacion ? `<meta name="google-site-verification" content="${esc(d.sitio.googleVerificacion)}">` : ''}
   <meta name="geo.region" content="ES-SE">
@@ -158,7 +148,7 @@ const html = `<!doctype html>
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="${esc(d.marca.favicon)}" type="image/svg+xml">
   <link rel="apple-touch-icon" href="${esc(d.marca.appleTouchIcon)}">
-  <link rel="preload" href="fonts/roboto-serif-condensed-800.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/archivo-condensed-800.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/archivo-400-600.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
   <script type="application/ld+json">${JSON.stringify(ld)}</script>
@@ -166,101 +156,80 @@ const html = `<!doctype html>
 <body>
   <a class="saltar" href="#contenido">Saltar al contenido</a>
 
-  <header class="cabecera">
-    <div class="cabecera__in">
-      <a class="cabecera__marca" href="#inicio" aria-label="${esc(nombreCompleto)}, inicio">
-        ${marca(d, { variante: 'compacta', tono: 'marino' })}
-      </a>
-      <nav class="cabecera__nav" aria-label="Secciones">
-        <a href="#servicios">Servicios</a>
-        <a href="#local">El local</a>
-        ${horario ? '<a href="#horario">Horario</a>' : ''}
-        <a href="#donde">Dónde</a>
-      </nav>
-      <a class="boton boton--marino cabecera__cta" ${ext(d.booksyUrl)}>Pedir cita</a>
-    </div>
+  <header class="top">
+    <a class="top__logo" href="#inicio" aria-label="${esc(nombreCompleto)}, inicio">${marca(d, { variante: 'compacta' })}</a>
+    <nav class="top__nav" aria-label="Secciones">
+      <a href="#precios">Precios</a>
+      ${horario ? '<a href="#horario">Horario</a>' : ''}
+      <a href="#donde">Dónde</a>
+    </nav>
+    <a class="btn btn--small" ${ext(d.booksyUrl)}>Pedir cita</a>
   </header>
 
   <main id="contenido">
-    <section class="portada" id="inicio" aria-labelledby="titulo-portada">
-      <div class="portada__texto">
-        <p class="antetitulo">${esc(d.tipo)} · ${esc(d.direccion.barrio)}, ${esc(d.direccion.ciudad)}</p>
-        <h1 id="titulo-portada">Tu peluquero en Triana.</h1>
-        <p class="portada__desc">Corte y barba en la calle Alfarería. Como te gusta, con ${esc(d.nombre)}.</p>
-        <div class="acciones" id="acciones-portada">
-          <a class="boton boton--marino" ${ext(d.booksyUrl)}>Reservar en Booksy</a>
-          ${secundaria ? `<a class="boton boton--linea" ${secundaria.attrs}>${esc(secundaria.texto)}</a>`
-            : `<a class="boton boton--linea" ${ext(d.mapsUrl)}>Cómo llegar</a>`}
+    <section class="hero" id="inicio" aria-labelledby="titulo">
+      <p class="hero__kicker">${esc(d.tipo)} · ${esc(d.direccion.barrio)}, ${esc(d.direccion.ciudad)}</p>
+      <h1 class="hero__title" id="titulo">${esc(d.nombre)}<span class="sr"> ${esc(d.descriptor)}, ${esc(d.tipo.toLowerCase())} en ${esc(d.direccion.barrio)}</span></h1>
+      <div class="hero__row">
+        <div>
+          <p class="hero__text">Corte y barba en la calle Alfarería. Sin prisas y como lo pides. <em>Reserva en un minuto</em>${whatsappUrl ? ' o escríbenos' : ''}.</p>
+          ${horario ? '<p class="hero__hoy" id="hoy" hidden></p>' : ''}
         </div>
-        ${horario ? '<p class="portada__hoy" id="hoy" hidden></p>' : ''}
-      </div>
-      ${portadaVisual}
-    </section>
-
-    <section class="bloque servicios" id="servicios" aria-labelledby="titulo-servicios">
-      <div class="bloque__cab">
-        <p class="bloque__num">01</p>
-        <h2 id="titulo-servicios">Cortes y barba</h2>
-      </div>
-      <div class="bloque__cuerpo">
-        <ul class="servicios__lista">${servicios}
-        </ul>
-        <p class="nota">${esc(d.servicios.nota)}</p>
-      </div>
-    </section>
-
-    <section class="bloque local" id="local" aria-labelledby="titulo-local">
-      <div class="bloque__cab">
-        <p class="bloque__num">02</p>
-        <h2 id="titulo-local">Al frente está ${esc(d.nombre)}.</h2>
-      </div>
-      <div class="bloque__cuerpo">
-        <p class="local__texto">Una peluquería y barbería de caballeros en la calle Alfarería, en Triana (Sevilla). Corte, barba y trato directo con ${esc(d.nombre)}.</p>
-        ${hechosLocal}
-      </div>
-      ${fotosLocal.length ? `<div class="local__fotos">${fotosLocal.map((f) => foto(f)).join('')}
-      </div>` : ''}
-    </section>
-
-    <section class="reservar" id="reservar" aria-labelledby="titulo-reservar">
-      <div class="reservar__in">
-        <h2 id="titulo-reservar">Tu próxima cita, aquí.</h2>
-        <p>Elige tu hueco en Booksy.${whatsappUrl ? ' Si prefieres consultarnos algo, escríbenos por WhatsApp.' : telefono ? ' Si prefieres consultarnos algo, llámanos.' : ''}</p>
-        <div class="acciones">
-          <a class="boton boton--crema" ${ext(d.booksyUrl)}>Reservar en Booksy</a>
-          ${secundaria ? `<a class="boton boton--linea-crema" ${secundaria.attrs}>${esc(secundaria.texto)}</a>` : ''}
+        <div class="hero__actions" id="acciones-portada">
+          <a class="btn" ${ext(d.booksyUrl)}>Reservar en Booksy</a>
+          ${whatsappUrl ? `<a class="btn btn--ghost" ${ext(whatsappUrl)}>WhatsApp</a>` : `<a class="btn btn--ghost" ${ext(d.mapsUrl)}>Cómo llegar</a>`}
         </div>
       </div>
     </section>
 
-    <section class="bloque visita" aria-label="Horario y ubicación">
-      ${horario ? `<div class="visita__col" id="horario">
-        <p class="bloque__num">03</p>
-        <h2>Horario</h2>
-        <table class="horario">
+    ${fotosGrid.length ? `<section class="photos photos--${fotosGrid.length}" aria-label="Fotos">${fotosGrid.map((f, n) => foto(f, { lazy: n > 0, clase: n === 0 ? 'photo--tall' : '' })).join('')}
+    </section>` : ''}
+
+    <section class="block" id="precios" aria-labelledby="titulo-precios">
+      <h2 class="block__title" id="titulo-precios"><span>01</span>Precios</h2>
+      <ul class="prices">${servicios}
+      </ul>
+      <p class="note">${esc(d.servicios.nota)}</p>
+    </section>
+
+    <section class="book" id="cita" aria-labelledby="titulo-cita">
+      <div class="book__col">
+        <h2 id="titulo-cita">¿Cómo pido cita?</h2>
+        <p>Lo más rápido es Booksy: ves los huecos libres y te llega un recordatorio.${whatsappUrl ? ' Si prefieres hablar con nosotros, mándanos un WhatsApp.' : telefono ? ' Si prefieres hablar con nosotros, llámanos.' : ''}</p>
+        <p>Una peluquería y barbería de caballeros en la calle Alfarería, en Triana (Sevilla). Corte, barba y trato directo con ${esc(d.nombre)}.</p>
+      </div>
+      <div class="book__opts">${opciones.map((o) => `
+        <a class="opt" ${o.attrs}>
+          <span class="opt__label">${esc(o.label)}</span>
+          <span class="opt__sub">${esc(o.sub)}</span>
+          <span class="opt__arrow" aria-hidden="true">→</span>
+        </a>`).join('')}
+      </div>
+    </section>
+
+    <section class="block block--split" aria-label="Horario y ubicación">
+      ${horario ? `<div id="horario">
+        <h2 class="block__title"><span>02</span>Horario</h2>
+        <table class="hours">
           <caption class="sr">Horario de apertura por días</caption>
           <tbody>${filasHorario}
           </tbody>
         </table>
-        <p class="nota">${esc(horario.nota)}</p>
+        <p class="note">${esc(horario.nota)}</p>
       </div>` : ''}
-      <div class="visita__col" id="donde">
-        <p class="bloque__num">${horario ? '04' : '03'}</p>
-        <h2>Dónde</h2>
-        <address class="direccion">
+      <div id="donde">
+        <h2 class="block__title"><span>${horario ? '03' : '02'}</span>Dónde</h2>
+        <address class="addr">
           ${esc(d.direccion.calle)}<br>
           ${esc(d.direccion.barrio)}, ${esc(d.direccion.ciudad)}
         </address>
-        <a class="boton boton--linea" ${ext(d.mapsUrl)}>Cómo llegar<span class="sr"> (Google Maps, se abre en otra pestaña)</span></a>
+        <a class="link" ${ext(d.mapsUrl)}>Abrir en Google Maps <span aria-hidden="true">→</span></a>
       </div>
     </section>
 
-    <section class="bloque faq" id="preguntas" aria-labelledby="titulo-faq">
-      <div class="bloque__cab">
-        <p class="bloque__num">${horario ? '05' : '04'}</p>
-        <h2 id="titulo-faq">Preguntas frecuentes</h2>
-      </div>
-      <div class="bloque__cuerpo faq__lista">${preguntas.map(([q, a]) => `
+    <section class="block" id="preguntas" aria-labelledby="titulo-faq">
+      <h2 class="block__title" id="titulo-faq"><span>${horario ? '04' : '03'}</span>Preguntas</h2>
+      <div class="faq">${preguntas.map(([q, a]) => `
         <div class="faq__item">
           <h3>${esc(q)}</h3>
           <p>${a}</p>
@@ -269,19 +238,16 @@ const html = `<!doctype html>
     </section>
   </main>
 
-  <footer class="pie">
-    <div class="pie__in">
-      <div class="pie__marca">${marca(d, { variante: 'compacta', tono: 'marino' })}</div>
-      <p>${esc(d.direccion.calle)} · ${esc(d.direccion.barrio)}, ${esc(d.direccion.ciudad)}</p>
-      <p><a ${ext(d.instagram.url)}>@${esc(d.instagram.usuario)}<span class="sr"> en Instagram</span></a></p>
-      ${d.sitio.legales.map((l) => `<p><a href="${esc(l.href)}">${esc(l.texto)}</a></p>`).join('')}
-      <p>© <span id="anio">${new Date().getFullYear()}</span> ${esc(nombreCompleto)}</p>
-    </div>
+  <footer class="foot">
+    <span>${esc(nombreCompleto)} · ${esc(d.direccion.calle)}, ${esc(d.direccion.ciudad)}</span>
+    <a ${ext(d.instagram.url)}>@${esc(d.instagram.usuario)}<span class="sr"> en Instagram</span></a>
+    ${d.sitio.legales.map((l) => `<a href="${esc(l.href)}">${esc(l.texto)}</a>`).join('')}
+    <span>© <span id="anio">${new Date().getFullYear()}</span></span>
   </footer>
 
-  <nav class="barra-movil" id="barra-movil" aria-label="Reservar">
-    <a class="boton boton--marino" ${ext(d.booksyUrl)}>Reservar en Booksy</a>
-    ${whatsappUrl ? `<a class="boton boton--linea" ${ext(whatsappUrl)}>WhatsApp</a>` : ''}
+  <nav class="mbar" id="barra-movil" aria-label="Reservar">
+    <a ${ext(d.booksyUrl)}>Reservar en Booksy</a>
+    ${whatsappUrl ? `<a ${ext(whatsappUrl)}>WhatsApp</a>` : ''}
   </nav>
 
   <script>
@@ -295,15 +261,15 @@ const html = `<!doctype html>
         var nombre = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'Europe/Madrid' }).format(new Date());
         hoy = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(nombre);
       } catch (e) { hoy = new Date().getDay(); }
-      var fila = document.querySelector('.horario tr[data-dia="' + hoy + '"]');
+      var fila = document.querySelector('.hours tr[data-dia="' + hoy + '"]');
       if (fila) {
         fila.classList.add('es-hoy');
-        fila.querySelector('th').insertAdjacentHTML('beforeend', ' <span class="etiqueta-hoy">hoy</span>');
+        fila.querySelector('th').insertAdjacentHTML('beforeend', ' <span class="hoy">hoy</span>');
       }
       var horario = ${JSON.stringify(horario ? Object.fromEntries(horario.dias.map((h) => [h.dia, { n: h.nombre, t: tramosTexto(h.tramos) }])) : null)};
       var hoyEl = document.getElementById('hoy');
       if (hoyEl && horario && horario[hoy]) {
-        hoyEl.innerHTML = '<span>Hoy, ' + horario[hoy].n.toLowerCase() + '</span> ' + horario[hoy].t;
+        hoyEl.innerHTML = '<span>Hoy, ' + horario[hoy].n.toLowerCase() + ':</span> ' + horario[hoy].t;
         hoyEl.hidden = false;
       }
 

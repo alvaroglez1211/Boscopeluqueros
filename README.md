@@ -25,22 +25,20 @@ Lo que tenga `confirmado: false` o valga `null` no se publica.
 ```
 config/negocio.mjs        ← datos del negocio (editar aquí)
 scripts/build.mjs         ← genera index.html
-scripts/marca.mjs         ← componente de marca (provisional, sustituible)
+scripts/marca.mjs         ← marca de la cabecera (texto, sustituible por SVG)
 scripts/check*.{mjs,cjs}  ← comprobaciones
 styles.css                ← estilos y tokens de color
-fonts/                    ← WOFF2 locales (Roboto Serif 800 y Archivo 400–600, licencia OFL)
+fonts/                    ← WOFF2 locales (Archivo y Newsreader, licencia OFL)
 img/                      ← favicon, icono iOS, imagen para redes, fotos
 marca/anterior/           ← propuesta de marca anterior, archivada
 docs/PROMPTS-fotos.md     ← prompts para generar fotos provisionales
 ```
 
-## Marca
-El logotipo actual es una **composición tipográfica provisional**, no un logo final vectorizado:
-`BOSCO / — TRIANA — / PELUQUEROS`, en Roboto Serif 800 y Archivo, que se acercan a la referencia pero no la reproducen exactamente.
-Cuando exista el SVG definitivo, pon sus rutas en `marca.logoCompleto`, `marca.logoCompleto_crema` y `marca.logoCompacto` dentro de la configuración.
-Si cambia la marca, el favicon y las imágenes se regeneran con `scripts/generar-favicon.py` y `scripts/generar-imagenes.cjs`.
-
-Colores (`styles.css`, en `:root`): crema `#F2EBDD`, superficie `#FAF6EF`, marino `#101D33`, rojo teja `#A43B29`, texto secundario `#605D57` y líneas `#D2C9BB`.
+## Diseño
+Estilo original: papel `#efe9df`, tinta `#1b1916` y rojo `#9a2f1f` (variables en `:root` de `styles.css`).
+Tipografías locales en `fonts/`, todas con licencia OFL: **Archivo** estrecha 800 para «BOSCO» y los títulos, **Archivo** 400–600 para el texto y **Newsreader** cursiva para los acentos.
+La marca de la cabecera es el nombre en texto («BOSCO *peluqueros*», en `scripts/marca.mjs`). Si algún día hay un logo en SVG, se pone en `marca.logoCompacto` dentro de la configuración.
+Si cambia el diseño, el favicon y las imágenes para redes se regeneran con `scripts/generar-favicon.py` y `scripts/generar-imagenes.cjs`.
 
 ## SEO
 El build genera `robots.txt`, `sitemap.xml` y `.nojekyll`, más canonical, Open Graph y datos estructurados `HairSalon` con dirección, horario, servicios y precios, y la acción de reservar en Booksy. La sección de preguntas frecuentes se construye con los datos confirmados.
@@ -49,7 +47,6 @@ El build genera `robots.txt`, `sitemap.xml` y `.nojekyll`, más canonical, Open 
 - [ ] **WhatsApp**: confirmar que el 616 539 412 tiene WhatsApp. Mientras tanto, el botón está oculto.
 - [ ] **Teléfonos** (954 089 985 y 616 539 412, sacados de un cartel de Instagram): confirmar que siguen vigentes. Mientras tanto, no se muestran.
 - [ ] **Fotos reales** del local, de Bosco trabajando y de detalles. Formatos: portada vertical 4:5 de al menos 1200×1500 y otras 3 cuadradas de al menos 1000×1000. Van en `img/local/` y se declaran en `fotos.portada` y `fotos.local`.
-- [ ] **Logo SVG definitivo** (versión completa, versión clara y versión compacta).
 - [ ] **Dominio propio** (opcional): ahora `sitio.url` apunta a GitHub Pages. Si se compra uno, cámbialo ahí y en Settings → Pages.
 - [ ] **Google Search Console**: verificar la web y enviar `sitemap.xml` (el código va en `sitio.googleVerificacion`).
 - [ ] **Servicios** «Corte + barba» y «Rapado» de la maqueta: no aparecen en Booksy, así que no se publican hasta confirmarlos.
