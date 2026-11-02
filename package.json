@@ -1,0 +1,13 @@
+{
+  "name": "bosco-peluqueros-web",
+  "private": true,
+  "description": "Web estática de Bosco Peluqueros (Triana, Sevilla). Sin dependencias.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs && node scripts/check.mjs",
+    "check:visual": "node scripts/check-visual.cjs",
+    "preview": "node scripts/preview.mjs"
+  },
+  "engines": { "node": ">=18" }
+}
