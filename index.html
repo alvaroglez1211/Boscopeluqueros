@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bosco Peluqueros</title>
+  <!-- EDITAR: ciudad/barrio en la descripción -->
+  <meta name="description" content="Bosco Peluqueros. Corte, barba y color. Pide cita por Booksy o WhatsApp.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Newsreader:ital,opsz,wght@1,6..72,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!--
+  ============================================================
+  DATOS QUE HAY QUE CAMBIAR (busca "EDITAR" en este archivo):
+  - Enlace de Booksy            -> BOOKSY_URL
+  - Teléfono de WhatsApp        -> 34600000000 (con prefijo, sin + ni espacios)
+  - Dirección, horario, precios, Instagram
+  ============================================================
+-->
+
+<header class="top">
+  <a href="#" class="top__logo">Bosco<span>peluqueros</span></a>
+  <nav class="top__nav">
+    <a href="#precios">Precios</a>
+    <a href="#horario">Horario</a>
+    <a href="#donde">Dónde</a>
+  </nav>
+  <!-- EDITAR: BOOKSY_URL -->
+  <a class="btn btn--small" href="BOOKSY_URL" target="_blank" rel="noopener">Pedir cita</a>
+</header>
+
+<main>
+
+  <section class="hero">
+    <p class="hero__kicker">Peluquería · Barbería</p>
+    <h1 class="hero__title">Bosco</h1>
+    <div class="hero__row">
+      <p class="hero__text">
+        Corte, barba y color. Sin prisas y como lo pides.
+        <em>Reserva en un minuto</em> o escríbenos.
+      </p>
+      <div class="hero__actions">
+        <!-- EDITAR: BOOKSY_URL -->
+        <a class="btn" href="BOOKSY_URL" target="_blank" rel="noopener">Reservar en Booksy</a>
+        <!-- EDITAR: número de WhatsApp -->
+        <a class="btn btn--ghost" href="https://wa.me/34600000000?text=Hola%2C%20quer%C3%ADa%20pedir%20cita" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="photos" aria-label="Fotos">
+    <!-- EDITAR: sustituye cada <div class="ph"> por <img src="img/foto1.jpg" alt="..."> -->
+    <div class="ph ph--tall"><span>foto del local</span></div>
+    <div class="ph"><span>corte</span></div>
+    <div class="ph"><span>barba</span></div>
+  </section>
+
+  <section id="precios" class="block">
+    <h2 class="block__title"><span>01</span>Precios</h2>
+    <!-- EDITAR: servicios y precios reales -->
+    <ul class="prices">
+      <li><span class="prices__name">Corte</span><span class="prices__dots"></span><span class="prices__val">15 €</span></li>
+      <li><span class="prices__name">Corte + barba</span><span class="prices__dots"></span><span class="prices__val">22 €</span></li>
+      <li><span class="prices__name">Arreglo de barba</span><span class="prices__dots"></span><span class="prices__val">10 €</span></li>
+      <li><span class="prices__name">Corte infantil <small>hasta 12 años</small></span><span class="prices__dots"></span><span class="prices__val">12 €</span></li>
+      <li><span class="prices__name">Rapado</span><span class="prices__dots"></span><span class="prices__val">10 €</span></li>
+      <li><span class="prices__name">Color / mechas</span><span class="prices__dots"></span><span class="prices__val">desde 25 €</span></li>
+    </ul>
+    <p class="note">Los precios y servicios actualizados están siempre en Booksy.</p>
+  </section>
+
+  <section id="cita" class="book">
+    <div class="book__col">
+      <h2>¿Cómo pido cita?</h2>
+      <p>Lo más rápido es Booksy: ves los huecos libres y te llega un recordatorio. Si prefieres hablar con nosotros, mándanos un WhatsApp.</p>
+    </div>
+    <div class="book__opts">
+      <!-- EDITAR: BOOKSY_URL -->
+      <a class="opt" href="BOOKSY_URL" target="_blank" rel="noopener">
+        <span class="opt__label">Booksy</span>
+        <span class="opt__sub">Elige día y hora</span>
+        <span class="opt__arrow" aria-hidden="true">→</span>
+      </a>
+      <!-- EDITAR: número de WhatsApp -->
+      <a class="opt" href="https://wa.me/34600000000?text=Hola%2C%20quer%C3%ADa%20pedir%20cita" target="_blank" rel="noopener">
+        <span class="opt__label">WhatsApp</span>
+        <span class="opt__sub">600 00 00 00</span>
+        <span class="opt__arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+
+  <section id="horario" class="block block--split">
+    <div>
+      <h2 class="block__title"><span>02</span>Horario</h2>
+      <!-- EDITAR: horario real -->
+      <table class="hours">
+        <tr><th>Lunes</th><td>Cerrado</td></tr>
+        <tr><th>Martes – Viernes</th><td>10:00 – 14:00<br>16:30 – 20:30</td></tr>
+        <tr><th>Sábado</th><td>9:30 – 14:00</td></tr>
+        <tr><th>Domingo</th><td>Cerrado</td></tr>
+      </table>
+    </div>
+    <div id="donde">
+      <h2 class="block__title"><span>03</span>Dónde</h2>
+      <!-- EDITAR: dirección -->
+      <address class="addr">
+        Calle Ejemplo, 12<br>
+        00000 Ciudad
+      </address>
+      <a class="link" href="https://maps.app.goo.gl/zXMAfhCzEWNtkZ9c7" target="_blank" rel="noopener">Abrir en Google Maps →</a>
+    </div>
+  </section>
+
+  <div class="map">
+    <!-- EDITAR: pon la dirección exacta en q= para que el mapa apunte bien -->
+    <iframe title="Mapa de Bosco Peluqueros" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.google.com/maps?q=Bosco%20Peluqueros&output=embed"></iframe>
+  </div>
+
+</main>
+
+<footer class="foot">
+  <span>Bosco Peluqueros</span>
+  <!-- EDITAR: Instagram -->
+  <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
+  <span>© <span id="y">2026</span></span>
+</footer>
+
+<!-- Barra fija en móvil -->
+<div class="mbar">
+  <a href="BOOKSY_URL" target="_blank" rel="noopener">Booksy</a>
+  <a href="https://wa.me/34600000000?text=Hola%2C%20quer%C3%ADa%20pedir%20cita" target="_blank" rel="noopener">WhatsApp</a>
+</div>
+
+<script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+</body>
+</html>
