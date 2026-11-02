@@ -8,6 +8,8 @@
 
 export default {
   nombre: 'Bosco',
+  // Cómo aparece el negocio en Google Maps e Instagram. Se usa en los datos estructurados.
+  nombresAlternativos: ["Bosco's Peluqueros", 'Bosco Peluqueros Triana'],
   firma: 'Triana',
   descriptor: 'Peluqueros',
   tipo: 'Peluquería de caballeros',
@@ -85,9 +87,9 @@ export default {
     local: [],
     mostrarIlustrativas: true,
     ilustrativas: [
-      { src: 'img/ilustrativas/degradado-maquinilla.jpg', webp: 'img/ilustrativas/degradado-maquinilla.webp', ancho: 960, alto: 960, alt: '', posicion: '60% 50%' },
-      { src: 'img/ilustrativas/afeitado-navaja.jpg', webp: 'img/ilustrativas/afeitado-navaja.webp', ancho: 960, alto: 960, alt: '', posicion: '50% 55%' },
-      { src: 'img/ilustrativas/herramientas-barbero.jpg', webp: 'img/ilustrativas/herramientas-barbero.webp', ancho: 800, alto: 800, alt: '', posicion: '50% 50%' },
+      { src: 'img/ilustrativas/degradado-maquinilla.jpg', webp: 'img/ilustrativas/degradado-maquinilla.webp', ancho: 960, alto: 960, alt: 'Barbero haciendo un degradado con maquinilla en la nuca', posicion: '60% 50%' },
+      { src: 'img/ilustrativas/afeitado-navaja.jpg', webp: 'img/ilustrativas/afeitado-navaja.webp', ancho: 960, alto: 960, alt: 'Barbero perfilando una barba con navaja y toalla caliente', posicion: '50% 55%' },
+      { src: 'img/ilustrativas/herramientas-barbero.jpg', webp: 'img/ilustrativas/herramientas-barbero.webp', ancho: 800, alto: 800, alt: 'Navaja, tijeras, peine, brocha y maquinilla de barbero sobre una toalla', posicion: '50% 50%' },
     ],
   },
 
@@ -103,11 +105,15 @@ export default {
   },
 
   sitio: {
-    titulo: 'Bosco Peluqueros en Triana | Corte y barba',
-    descripcion: 'Peluquería de caballeros en la calle Alfarería, Triana, Sevilla. Descubre Bosco y reserva tu cita.',
-    // PENDIENTE: dominio definitivo. Mientras sea null no se añade canonical
-    // y la imagen de Open Graph usa una ruta relativa.
-    url: null,
+    titulo: 'Bosco Peluqueros | Peluquería de caballeros en Triana, Sevilla',
+    descripcion: 'Peluquería y barbería de caballeros en la calle Alfarería, 113, en Triana (Sevilla). Corte y arreglo de barba. Reserva tu cita en Booksy.',
+    // Dirección pública de la web. Si algún día hay dominio propio, cámbiala aquí
+    // (y en Settings → Pages → Custom domain).
+    url: 'https://alvaroglez1211.github.io/Boscopeluqueros/',
+    // Código de Google Search Console (método «Etiqueta HTML»): solo el valor de content="…".
+    googleVerificacion: null,
+    // Otros perfiles oficiales del negocio (Facebook, Google Maps…). Ayudan a Google a relacionarlos.
+    perfiles: ['https://maps.app.goo.gl/zXMAfhCzEWNtkZ9c7', 'https://booksy.com/es-es/dl/show-business/757'],
     // Enlaces legales existentes (ninguno por ahora). Ej.: { texto: 'Aviso legal', href: 'aviso-legal.html' }
     legales: [],
   },

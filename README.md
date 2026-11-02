@@ -42,12 +42,16 @@ Si cambia la marca, el favicon y las imágenes se regeneran con `scripts/generar
 
 Colores (`styles.css`, en `:root`): crema `#F2EBDD`, superficie `#FAF6EF`, marino `#101D33`, rojo teja `#A43B29`, texto secundario `#605D57` y líneas `#D2C9BB`.
 
+## SEO
+El build genera `robots.txt`, `sitemap.xml` y `.nojekyll`, más canonical, Open Graph y datos estructurados `HairSalon` con dirección, horario, servicios y precios, y la acción de reservar en Booksy. La sección de preguntas frecuentes se construye con los datos confirmados.
+
 ## Pendientes
 - [ ] **WhatsApp**: confirmar que el 616 539 412 tiene WhatsApp. Mientras tanto, el botón está oculto.
 - [ ] **Teléfonos** (954 089 985 y 616 539 412, sacados de un cartel de Instagram): confirmar que siguen vigentes. Mientras tanto, no se muestran.
 - [ ] **Fotos reales** del local, de Bosco trabajando y de detalles. Formatos: portada vertical 4:5 de al menos 1200×1500 y otras 3 cuadradas de al menos 1000×1000. Van en `img/local/` y se declaran en `fotos.portada` y `fotos.local`.
 - [ ] **Logo SVG definitivo** (versión completa, versión clara y versión compacta).
-- [ ] **Dominio**: cuando exista, ponlo en `sitio.url` para activar el canonical y la URL absoluta de og:image.
+- [ ] **Dominio propio** (opcional): ahora `sitio.url` apunta a GitHub Pages. Si se compra uno, cámbialo ahí y en Settings → Pages.
+- [ ] **Google Search Console**: verificar la web y enviar `sitemap.xml` (el código va en `sitio.googleVerificacion`).
 - [ ] **Servicios** «Corte + barba» y «Rapado» de la maqueta: no aparecen en Booksy, así que no se publican hasta confirmarlos.
 - [ ] **Textos legales** (aviso legal y privacidad): no existen y no se han inventado.
 

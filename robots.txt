@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /marca/anterior/
+
+Sitemap: https://alvaroglez1211.github.io/Boscopeluqueros/sitemap.xml

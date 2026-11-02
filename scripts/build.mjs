@@ -78,15 +78,34 @@ const hechosLocal = `
 const ld = {
   '@context': 'https://schema.org',
   '@type': 'HairSalon',
+  '@id': d.sitio.url ? d.sitio.url + '#negocio' : undefined,
   name: nombreCompleto,
+  alternateName: d.nombresAlternativos,
+  description: d.sitio.descripcion,
+  ...(d.sitio.url ? { image: absoluta(d.marca.ogImage), logo: absoluta(d.marca.appleTouchIcon) } : {}),
+  hasMap: d.mapsUrl,
+  areaServed: { '@type': 'Place', name: `${d.direccion.barrio}, ${d.direccion.ciudad}` },
   address: {
     '@type': 'PostalAddress',
     streetAddress: d.direccion.calle,
     addressLocality: d.direccion.ciudad,
     postalCode: d.direccion.codigoPostal || undefined,
+    addressRegion: 'Andalucía',
     addressCountry: d.direccion.pais,
   },
-  sameAs: [d.instagram.url],
+  potentialAction: { '@type': 'ReserveAction', target: d.booksyUrl, name: 'Reservar cita en Booksy' },
+  ...(precios ? {
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog', name: 'Servicios',
+      itemListElement: d.servicios.lista.filter((s) => s.precio).map((s) => ({
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name: s.detalle ? `${s.nombre} (${s.detalle})` : s.nombre },
+        price: s.precio.replace(/[^\d,]/g, '').replace(',', '.'),
+        priceCurrency: 'EUR',
+      })),
+    },
+  } : {}),
+  sameAs: [d.instagram.url, ...(d.sitio.perfiles || [])],
   ...(d.sitio.url ? { url: d.sitio.url } : {}),
   ...(telefono ? { telephone: telefono.numero } : {}),
   ...(horario ? {
@@ -98,6 +117,19 @@ const ld = {
   } : {}),
 };
 
+// ── Preguntas frecuentes (solo con datos confirmados) ─────────
+const precioDe = (n) => d.servicios.lista.find((s) => s.nombre === n)?.precio;
+const diasAbre = horario ? horario.dias.filter((h) => h.tramos.length).map((h) => h.nombre.toLowerCase()) : [];
+const diasCierra = horario ? horario.dias.filter((h) => !h.tramos.length).map((h) => h.nombre.toLowerCase()) : [];
+const lista = (a) => (a.length > 1 ? a.slice(0, -1).join(', ') + ' y ' + a[a.length - 1] : a[0] || '');
+const preguntas = [
+  ['¿Cómo pido cita?', `Por <a ${ext(d.booksyUrl)}>Booksy</a>: eliges el servicio, el día y la hora que te vengan bien y te llega la confirmación.`],
+  ['¿Dónde está la peluquería?', `En la ${esc(d.direccion.calle.replace(/^Calle/, 'calle'))}, en el barrio de ${esc(d.direccion.barrio)} (${esc(d.direccion.ciudad)}). <a ${ext(d.mapsUrl)}>Ver en Google Maps</a>.`],
+  ...(precios && precioDe('Corte') ? [['¿Cuánto cuesta un corte de pelo?', `El corte de caballero cuesta ${esc(precioDe('Corte'))}${precioDe('Arreglo de barba') ? ` y el arreglo de barba, ${esc(precioDe('Arreglo de barba'))}` : ''}. Los precios actualizados están siempre en Booksy.`]] : []),
+  ...(precios && precioDe('Corte niño') ? [['¿Cortáis el pelo a niños?', `Sí. El corte para menores de 12 años cuesta ${esc(precioDe('Corte niño'))}.`]] : []),
+  ...(horario ? [['¿Qué días abre?', `Abre de ${diasAbre[0]} a ${diasAbre[diasAbre.length - 1]}, por la mañana y por la tarde. ${lista(diasCierra).replace(/^./, (c) => c.toUpperCase())}, cerrado.`]] : []),
+];
+
 // ── Página ────────────────────────────────────────────────────
 const html = `<!doctype html>
 <!-- Archivo generado por scripts/build.mjs a partir de config/negocio.mjs. No lo edites a mano. -->
@@ -108,14 +140,21 @@ const html = `<!doctype html>
   <title>${esc(d.sitio.titulo)}</title>
   <meta name="description" content="${esc(d.sitio.descripcion)}">
   <meta name="theme-color" content="#101D33">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  ${d.sitio.googleVerificacion ? `<meta name="google-site-verification" content="${esc(d.sitio.googleVerificacion)}">` : ''}
+  <meta name="geo.region" content="ES-SE">
+  <meta name="geo.placename" content="${esc(d.direccion.barrio)}, ${esc(d.direccion.ciudad)}">
   ${d.sitio.url ? `<link rel="canonical" href="${esc(d.sitio.url)}">` : ''}
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="${esc(nombreCompleto)}">
+  ${d.sitio.url ? `<meta property="og:url" content="${esc(d.sitio.url)}">` : ''}
   <meta property="og:locale" content="es_ES">
   <meta property="og:title" content="${esc(d.sitio.titulo)}">
   <meta property="og:description" content="${esc(d.sitio.descripcion)}">
   <meta property="og:image" content="${esc(absoluta(d.marca.ogImage))}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="${esc(nombreCompleto)}, ${esc(d.direccion.barrio)}">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="${esc(d.marca.favicon)}" type="image/svg+xml">
   <link rel="apple-touch-icon" href="${esc(d.marca.appleTouchIcon)}">
@@ -176,7 +215,7 @@ const html = `<!doctype html>
         <h2 id="titulo-local">Al frente está ${esc(d.nombre)}.</h2>
       </div>
       <div class="bloque__cuerpo">
-        <p class="local__texto">Una peluquería de caballeros en la calle Alfarería, en Triana. Corte, barba y trato directo con ${esc(d.nombre)}.</p>
+        <p class="local__texto">Una peluquería y barbería de caballeros en la calle Alfarería, en Triana (Sevilla). Corte, barba y trato directo con ${esc(d.nombre)}.</p>
         ${hechosLocal}
       </div>
       ${fotosLocal.length ? `<div class="local__fotos">${fotosLocal.map((f) => foto(f)).join('')}
@@ -213,6 +252,19 @@ const html = `<!doctype html>
           ${esc(d.direccion.barrio)}, ${esc(d.direccion.ciudad)}
         </address>
         <a class="boton boton--linea" ${ext(d.mapsUrl)}>Cómo llegar<span class="sr"> (Google Maps, se abre en otra pestaña)</span></a>
+      </div>
+    </section>
+
+    <section class="bloque faq" id="preguntas" aria-labelledby="titulo-faq">
+      <div class="bloque__cab">
+        <p class="bloque__num">${horario ? '05' : '04'}</p>
+        <h2 id="titulo-faq">Preguntas frecuentes</h2>
+      </div>
+      <div class="bloque__cuerpo faq__lista">${preguntas.map(([q, a]) => `
+        <div class="faq__item">
+          <h3>${esc(q)}</h3>
+          <p>${a}</p>
+        </div>`).join('')}
       </div>
     </section>
   </main>
@@ -271,12 +323,22 @@ const html = `<!doctype html>
 `;
 
 writeFileSync(join(raiz, 'index.html'), html.replace(/\n\s*\n(\s*\n)+/g, '\n\n'));
+writeFileSync(join(raiz, '.nojekyll'), '');
+writeFileSync(join(raiz, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /marca/anterior/\n${d.sitio.url ? `\nSitemap: ${absoluta('sitemap.xml')}\n` : ''}`);
+if (d.sitio.url) {
+  writeFileSync(join(raiz, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>${esc(d.sitio.url)}</loc><lastmod>${new Date().toISOString().slice(0, 10)}</lastmod></url>
+</urlset>
+`);
+}
 
 // ── Avisos de datos pendientes ────────────────────────────────
 const pendientes = [];
 if (!d.whatsapp?.confirmado) pendientes.push('WhatsApp sin confirmar: el botón está oculto.');
 if (!telefono) pendientes.push('Teléfonos sin confirmar: no se muestran.');
 if (!d.sitio.url) pendientes.push('Sin dominio definitivo: no hay canonical y og:image es relativa.');
+if (!d.sitio.googleVerificacion) pendientes.push('Google Search Console sin verificar (sitio.googleVerificacion).');
 if (!d.fotos.portada && !d.fotos.local.length) pendientes.push('No hay fotos reales del local ni de Bosco.');
 if (!d.marca.logoCompleto) pendientes.push('Logo: se usa la composición tipográfica provisional.');
 console.log('index.html generado.');

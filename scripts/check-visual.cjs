@@ -29,6 +29,7 @@ const anchos = [360, 390, 768, 1024, 1440];
       document.querySelectorAll('a, button').forEach((a) => {
         const rc = a.getBoundingClientRect(); const cs = getComputedStyle(a);
         if (!rc.width || cs.visibility === 'hidden' || a.closest('[hidden]') || a.classList.contains('saltar')) return;
+        if (cs.display === 'inline' && a.parentElement.tagName === 'P') return; // enlace dentro de una frase: exento (WCAG 2.5.8)
         if (rc.height < 44) out.push(`objetivo táctil pequeño (${Math.round(rc.height)}px): ${a.textContent.trim().slice(0, 30)}`);
       });
       // Pequeños textos legibles

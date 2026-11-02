@@ -308,3 +308,10 @@ a { color: inherit; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
+
+/* Preguntas frecuentes */
+.faq__lista { border-top: 1.5px solid var(--marino); }
+.faq__item { padding: 20px 0; border-bottom: 1px solid var(--linea); }
+.faq__item h3 { font: 600 clamp(18px, 1.6vw, 20px)/1.3 var(--f-texto); margin: 0 0 6px; }
+.faq__item p { color: var(--texto-2); }
+.faq__item a { color: var(--marino); text-underline-offset: 3px; }

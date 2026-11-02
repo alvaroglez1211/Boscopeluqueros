@@ -3,6 +3,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import datos from '../config/negocio.mjs';
 
 const raiz = join(dirname(fileURLToPath(import.meta.url)), '..');
 const html = readFileSync(join(raiz, 'index.html'), 'utf8');
@@ -13,8 +14,17 @@ const ok = (cond, msg) => { if (!cond) errores.push(msg); };
 // Estructura
 ok((html.match(/<h1[\s>]/g) || []).length === 1, 'Debe haber exactamente un <h1>.');
 ok(/<html lang="es">/.test(html), 'Falta lang="es".');
-ok(/<title>Bosco Peluqueros en Triana \| Corte y barba<\/title>/.test(html), 'Título SEO incorrecto.');
-ok(/name="description" content="Peluquería de caballeros en la calle Alfarería, Triana, Sevilla\. Descubre Bosco y reserva tu cita\."/.test(html), 'Meta description incorrecta.');
+const tit = html.match(/<title>(.*?)<\/title>/)?.[1] || '';
+const desc = html.match(/name="description" content="([^"]*)"/)?.[1] || '';
+ok(tit.length >= 30 && tit.length <= 65, `Título de ${tit.length} caracteres (recomendado 30–65).`);
+ok(desc.length >= 70 && desc.length <= 160, `Descripción de ${desc.length} caracteres (recomendado 70–160).`);
+ok(/Triana/.test(tit) && /Sevilla/.test(desc), 'Faltan palabras clave locales en título o descripción.');
+if (datos.sitio.url) {
+  ok(html.includes(`<link rel="canonical" href="${datos.sitio.url}">`), 'Falta canonical.');
+  ok(/property="og:image" content="https:/.test(html), 'og:image debe ser absoluta.');
+  ok(existsSync(join(raiz, 'sitemap.xml')) && readFileSync(join(raiz, 'robots.txt'), 'utf8').includes('Sitemap:'), 'Faltan sitemap.xml o robots.txt.');
+}
+for (const m of html.matchAll(/<img [^>]*>/g)) if (!/marca-img/.test(m[0])) ok(!/ alt=""/.test(m[0]), `Imagen de contenido sin texto alternativo: ${m[0].slice(0, 80)}`);
 const niveles = [...html.matchAll(/<h([1-6])[\s>]/g)].map((m) => +m[1]);
 niveles.forEach((n, i) => ok(i === 0 || n <= niveles[i - 1] + 1, `Salto de encabezado: h${niveles[i - 1]} → h${n}.`));
 
