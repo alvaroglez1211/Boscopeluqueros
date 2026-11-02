@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marca · Bosco's Peluqueros</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Newsreader:ital,opsz,wght@1,6..72,400&display=swap" rel="stylesheet">
+<link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+<style>
+  :root { --paper:#efe9df; --ink:#1b1916; --soft:#5c564e; --line:#1b191633; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--paper); color:var(--ink); font-family:Archivo,sans-serif; line-height:1.5; padding:0 clamp(16px,4vw,48px) 80px; }
+  header { padding:28px 0; border-bottom:1px solid var(--ink); display:flex; justify-content:space-between; align-items:baseline; gap:16px; }
+  header a { font-size:14px; }
+  h1 { font-size:14px; text-transform:uppercase; letter-spacing:.14em; font-weight:500; }
+  h2 { font-variation-settings:"wdth" 62; font-weight:800; text-transform:uppercase; font-size:clamp(32px,5vw,48px); line-height:1; margin:72px 0 20px; display:flex; gap:14px; align-items:baseline; }
+  h2 span { font-size:14px; font-weight:500; color:#9a2f1f; font-variation-settings:normal; }
+  p { max-width:62ch; color:var(--soft); }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px; margin-top:20px; }
+  .tile { border:1px solid var(--line); padding:28px; display:flex; flex-direction:column; justify-content:space-between; gap:20px; min-height:240px; }
+  .tile img { width:100%; height:auto; max-height:200px; object-fit:contain; }
+  .tile.dark { background:var(--ink); color:var(--paper); border-color:var(--ink); }
+  .tile small { font-size:12px; text-transform:uppercase; letter-spacing:.12em; }
+  .tile a { color:inherit; font-size:13px; margin-right:10px; }
+  .hero-logo { margin:48px 0 0; } .hero-logo img { width:min(100%,900px); }
+  .sw { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px; margin-top:20px; }
+  .sw div { border:1px solid var(--line); }
+  .sw i { display:block; height:110px; }
+  .sw b, .sw code { display:block; padding:0 14px; } .sw b { padding-top:12px; } .sw code { padding-bottom:14px; font-size:13px; color:var(--soft); }
+  .type { border-top:1px solid var(--ink); margin-top:20px; }
+  .type > div { display:grid; grid-template-columns:200px 1fr; gap:20px; padding:20px 0; border-bottom:1px solid var(--line); align-items:baseline; }
+  .t1 { font-variation-settings:"wdth" 62; font-weight:800; font-size:56px; text-transform:uppercase; line-height:1; }
+  .t2 { font-family:Newsreader,serif; font-style:italic; font-size:30px; }
+  .t3 { font-size:18px; }
+  ul.rules { margin-top:16px; max-width:70ch; list-style:none; border-top:1px solid var(--ink); }
+  ul.rules li { padding:12px 0; border-bottom:1px solid var(--line); }
+  @media (max-width:640px){ .type > div { grid-template-columns:1fr; gap:6px; } }
+</style>
+</head>
+<body>
+<header><h1>Bosco's Peluqueros · Manual de marca</h1><a href="../">← Volver a la web</a></header>
+
+<div class="hero-logo"><img src="logo-simple.svg" alt="Bosco's"></div>
+
+<h2><span>01</span>Idea</h2>
+<p>Un rótulo de barbería de barrio, no un logo de franquicia. Letra alta y estrecha en negro, papel crudo de fondo y un único gesto de color: <strong>el apóstrofo de Bosco's es un poste de barbero</strong>. Ese poste es lo que hace reconocible la marca. Se usa solo y nunca se rodea de más adornos.</p>
+
+<h2><span>02</span>Logos</h2>
+<div class="grid">
+  <div class="tile"><img src="logo.svg" alt=""><div><small>Logotipo principal</small><br><a href="logo.svg" download>SVG</a><a href="logo.png" download>PNG</a></div></div>
+  <div class="tile dark"><img src="logo-negativo.svg" alt=""><div><small>Logotipo en negativo</small><br><a href="logo-negativo.svg" download>SVG</a><a href="logo-negativo.png" download>PNG</a></div></div>
+  <div class="tile"><img src="sello.svg" alt=""><div><small>Sello · stickers, tarjetas, puerta</small><br><a href="sello.svg" download>SVG</a><a href="sello.png" download>PNG</a></div></div>
+  <div class="tile"><img src="sello-papel.svg" alt=""><div><small>Sello claro</small><br><a href="sello-papel.svg" download>SVG</a></div></div>
+  <div class="tile dark"><img src="icono.svg" alt=""><div><small>Icono · foto de perfil de Instagram y Booksy</small><br><a href="icono-instagram.png" download>PNG 1080×1080</a></div></div>
+  <div class="tile"><img src="logo-simple.svg" alt=""><div><small>Logotipo solo · cabeceras, rótulo</small><br><a href="logo-simple.svg" download>SVG</a><a href="logo-simple-negativo.svg" download>SVG negativo</a></div></div>
+</div>
+
+<h2><span>03</span>Colores</h2>
+<div class="sw">
+  <div><i style="background:#1b1916"></i><b>Tinta</b><code>#1B1916</code></div>
+  <div><i style="background:#efe9df;border-bottom:1px solid #1b191633"></i><b>Papel</b><code>#EFE9DF</code></div>
+  <div><i style="background:#b3322a"></i><b>Rojo poste</b><code>#B3322A</code></div>
+  <div><i style="background:#24407a"></i><b>Azul poste</b><code>#24407A</code></div>
+</div>
+<p style="margin-top:14px">El rojo y el azul solo aparecen en el poste y en detalles pequeños. Todo lo demás va en tinta y papel.</p>
+
+<h2><span>04</span>Tipografías</h2>
+<div class="type">
+  <div><small>Archivo Extra Condensed 800</small><span class="t1">Corte y barba</span></div>
+  <div><small>Newsreader Italic</small><span class="t2">sin prisas y como lo pides</span></div>
+  <div><small>Archivo 400–600</small><span class="t3">Textos, precios y horarios. Calle Alfarería 113, Triana.</span></div>
+</div>
+<p style="margin-top:14px">Las dos son gratuitas en Google Fonts y sirven igual para Canva, carteles o la web.</p>
+
+<h2><span>05</span>Reglas</h2>
+<ul class="rules">
+  <li>No estirar, girar ni poner sombras al logo.</li>
+  <li>Sobre fotos, usar el logotipo en negativo o el sello, nunca el de tinta sobre fondo oscuro.</li>
+  <li>Dejar alrededor del logo un margen de al menos la altura del poste.</li>
+  <li>En Instagram, el icono va de foto de perfil y el sello sirve de marca de agua en las fotos.</li>
+</ul>
+</body>
+</html>

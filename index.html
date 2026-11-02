@@ -8,7 +8,7 @@
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Newsreader:ital,opsz,wght@1,6..72,400&family=Yesteryear&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Newsreader:ital,opsz,wght@1,6..72,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -22,45 +22,8 @@
   ============================================================
 -->
 
-<!-- Logo provisional en vectorial (recreado a partir del de Instagram) -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <pattern id="stripes" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(-35)">
-      <rect width="14" height="14" fill="#f4efe6"/>
-      <rect width="4" height="14" fill="#b3322a"/>
-      <rect x="7" width="4" height="14" fill="#24407a"/>
-    </pattern>
-    <symbol id="pole" viewBox="0 0 28 80">
-      <rect x="2" y="0" width="24" height="8" rx="3" fill="currentColor"/>
-      <rect x="5" y="10" width="18" height="60" rx="2" fill="url(#stripes)" stroke="currentColor" stroke-width="2"/>
-      <rect x="2" y="72" width="24" height="8" rx="3" fill="currentColor"/>
-    </symbol>
-    <path id="arc-bottom" d="M 38 200 A 162 162 0 0 0 362 200"/>
-    <symbol id="razor" viewBox="0 0 300 40">
-      <path d="M4 20 Q4 6 20 6 L150 6 L150 34 L20 34 Q4 34 4 20Z" fill="#d9d3c7"/>
-      <path d="M150 6 L150 34" stroke="#1b1916" stroke-width="2"/>
-      <rect x="152" y="9" width="140" height="22" rx="11" fill="#f4efe6"/>
-      <circle cx="160" cy="20" r="4" fill="#1b1916"/>
-    </symbol>
-    <symbol id="badge" viewBox="0 0 400 400">
-      <circle cx="200" cy="200" r="198" fill="#1b1916"/>
-      <circle cx="200" cy="200" r="184" fill="none" stroke="#f4efe6" stroke-width="2"/>
-      <text x="200" y="118" text-anchor="middle" fill="#f4efe6" font-family="Yesteryear, cursive" font-size="82">Bosco's</text>
-      <text x="200" y="146" text-anchor="middle" fill="#f4efe6" font-family="Archivo, sans-serif" font-weight="700" font-size="14" letter-spacing="5">PELUQUEROS</text>
-      <g transform="translate(200 232)">
-        <use href="#razor" x="-108" y="-15" width="216" height="30" transform="rotate(26)"/>
-        <use href="#razor" x="-108" y="-15" width="216" height="30" transform="scale(-1 1) rotate(26)"/>
-      </g>
-      <use href="#pole" x="183" y="176" width="34" height="124" style="color:#f4efe6"/>
-      <text fill="#f4efe6" font-family="Archivo, sans-serif" font-weight="700" font-size="16" letter-spacing="5">
-        <textPath href="#arc-bottom" startOffset="50%" text-anchor="middle">BARBERSHOP · TRIANA</textPath>
-      </text>
-    </symbol>
-  </defs>
-</svg>
-
 <header class="top">
-  <a href="#" class="top__logo"><svg class="top__pole" viewBox="0 0 28 80" aria-hidden="true"><use href="#pole"/></svg>Bosco's<span>peluqueros</span></a>
+  <a href="#" class="top__logo"><img src="marca/logo-simple.svg" alt="Bosco's" width="120" height="33"><span>peluqueros</span></a>
   <nav class="top__nav">
     <a href="#precios">Precios</a>
     <a href="#horario">Horario</a>
@@ -73,7 +36,7 @@
 
   <section class="hero">
     <p class="hero__kicker">Peluquería de caballeros · Triana, Sevilla</p>
-    <h1 class="hero__title">Bosco</h1>
+    <h1 class="hero__title"><img src="marca/logo-simple.svg" alt="Bosco's Peluqueros"></h1>
     <div class="hero__row">
       <p class="hero__text">
         Corte y barba en la calle Alfarería. Sin prisas y como lo pides.
@@ -97,7 +60,7 @@
   <div class="stripe" aria-hidden="true"></div>
 
   <section class="about">
-    <svg class="badge" viewBox="0 0 400 400" role="img" aria-label="Logo de Bosco's Peluqueros"><use href="#badge"/></svg>
+    <img class="badge" src="marca/sello.svg" alt="Sello de Bosco's Peluqueros" width="220" height="220">
     <div>
       <p class="about__lead">Bosco's es una peluquería de caballeros de las de siempre, en pleno barrio de Triana.</p>
       <p>Te atiende Bosco. Hay poco hueco, así que mejor coge cita con antelación.</p>
