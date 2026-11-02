@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bosco Peluqueros</title>
-  <!-- EDITAR: ciudad/barrio en la descripción -->
-  <meta name="description" content="Bosco Peluqueros. Corte, barba y color. Pide cita por Booksy o WhatsApp.">
+  <title>Bosco's Peluqueros · Barbería en Triana, Sevilla</title>
+  <meta name="description" content="Bosco's Peluqueros, peluquería de caballeros en Calle Alfarería 113, Triana (Sevilla). Pide cita por Booksy o WhatsApp.">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Newsreader:ital,opsz,wght@1,6..72,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Newsreader:ital,opsz,wght@1,6..72,400&family=Yesteryear&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -16,36 +16,71 @@
 <!--
   ============================================================
   DATOS QUE HAY QUE CAMBIAR (busca "EDITAR" en este archivo):
-  - Enlace de Booksy            -> BOOKSY_URL
+  - Enlace de Booksy            -> https://booksy.com/es-es/instant-experiences/widget/757?instant_experiences_enabled=true
   - Teléfono de WhatsApp        -> 34600000000 (con prefijo, sin + ni espacios)
-  - Dirección, horario, precios, Instagram
+  - Horario y precios
   ============================================================
 -->
 
+<!-- Logo provisional en vectorial (recreado a partir del de Instagram) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <pattern id="stripes" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(-35)">
+      <rect width="14" height="14" fill="#f4efe6"/>
+      <rect width="4" height="14" fill="#b3322a"/>
+      <rect x="7" width="4" height="14" fill="#24407a"/>
+    </pattern>
+    <symbol id="pole" viewBox="0 0 28 80">
+      <rect x="2" y="0" width="24" height="8" rx="3" fill="currentColor"/>
+      <rect x="5" y="10" width="18" height="60" rx="2" fill="url(#stripes)" stroke="currentColor" stroke-width="2"/>
+      <rect x="2" y="72" width="24" height="8" rx="3" fill="currentColor"/>
+    </symbol>
+    <path id="arc-bottom" d="M 38 200 A 162 162 0 0 0 362 200"/>
+    <symbol id="razor" viewBox="0 0 300 40">
+      <path d="M4 20 Q4 6 20 6 L150 6 L150 34 L20 34 Q4 34 4 20Z" fill="#d9d3c7"/>
+      <path d="M150 6 L150 34" stroke="#1b1916" stroke-width="2"/>
+      <rect x="152" y="9" width="140" height="22" rx="11" fill="#f4efe6"/>
+      <circle cx="160" cy="20" r="4" fill="#1b1916"/>
+    </symbol>
+    <symbol id="badge" viewBox="0 0 400 400">
+      <circle cx="200" cy="200" r="198" fill="#1b1916"/>
+      <circle cx="200" cy="200" r="184" fill="none" stroke="#f4efe6" stroke-width="2"/>
+      <text x="200" y="118" text-anchor="middle" fill="#f4efe6" font-family="Yesteryear, cursive" font-size="82">Bosco's</text>
+      <text x="200" y="146" text-anchor="middle" fill="#f4efe6" font-family="Archivo, sans-serif" font-weight="700" font-size="14" letter-spacing="5">PELUQUEROS</text>
+      <g transform="translate(200 232)">
+        <use href="#razor" x="-108" y="-15" width="216" height="30" transform="rotate(26)"/>
+        <use href="#razor" x="-108" y="-15" width="216" height="30" transform="scale(-1 1) rotate(26)"/>
+      </g>
+      <use href="#pole" x="183" y="176" width="34" height="124" style="color:#f4efe6"/>
+      <text fill="#f4efe6" font-family="Archivo, sans-serif" font-weight="700" font-size="16" letter-spacing="5">
+        <textPath href="#arc-bottom" startOffset="50%" text-anchor="middle">BARBERSHOP · TRIANA</textPath>
+      </text>
+    </symbol>
+  </defs>
+</svg>
+
 <header class="top">
-  <a href="#" class="top__logo">Bosco<span>peluqueros</span></a>
+  <a href="#" class="top__logo"><svg class="top__pole" viewBox="0 0 28 80" aria-hidden="true"><use href="#pole"/></svg>Bosco's<span>peluqueros</span></a>
   <nav class="top__nav">
     <a href="#precios">Precios</a>
     <a href="#horario">Horario</a>
     <a href="#donde">Dónde</a>
   </nav>
-  <!-- EDITAR: BOOKSY_URL -->
-  <a class="btn btn--small" href="BOOKSY_URL" target="_blank" rel="noopener">Pedir cita</a>
+  <a class="btn btn--small" href="https://booksy.com/es-es/instant-experiences/widget/757?instant_experiences_enabled=true" target="_blank" rel="noopener">Pedir cita</a>
 </header>
 
 <main>
 
   <section class="hero">
-    <p class="hero__kicker">Peluquería · Barbería</p>
+    <p class="hero__kicker">Peluquería de caballeros · Triana, Sevilla</p>
     <h1 class="hero__title">Bosco</h1>
     <div class="hero__row">
       <p class="hero__text">
-        Corte, barba y color. Sin prisas y como lo pides.
+        Corte y barba en la calle Alfarería. Sin prisas y como lo pides.
         <em>Reserva en un minuto</em> o escríbenos.
       </p>
       <div class="hero__actions">
-        <!-- EDITAR: BOOKSY_URL -->
-        <a class="btn" href="BOOKSY_URL" target="_blank" rel="noopener">Reservar en Booksy</a>
+        <a class="btn" href="https://booksy.com/es-es/instant-experiences/widget/757?instant_experiences_enabled=true" target="_blank" rel="noopener">Reservar en Booksy</a>
         <!-- EDITAR: número de WhatsApp -->
         <a class="btn btn--ghost" href="https://wa.me/34600000000?text=Hola%2C%20quer%C3%ADa%20pedir%20cita" target="_blank" rel="noopener">WhatsApp</a>
       </div>
@@ -53,10 +88,20 @@
   </section>
 
   <section class="photos" aria-label="Fotos">
-    <!-- EDITAR: sustituye cada <div class="ph"> por <img src="img/foto1.jpg" alt="..."> -->
-    <div class="ph ph--tall"><span>foto del local</span></div>
-    <div class="ph"><span>corte</span></div>
-    <div class="ph"><span>barba</span></div>
+    <!-- Fotos: guarda las imágenes en img/ con estos nombres y aparecen solas -->
+    <figure class="ph ph--tall"><img src="img/foto-local.jpg" alt="Interior de Bosco's Peluqueros" onerror="this.remove()"><span>foto del local</span></figure>
+    <figure class="ph"><img src="img/foto-corte.jpg" alt="Corte de pelo" onerror="this.remove()"><span>corte</span></figure>
+    <figure class="ph"><img src="img/foto-barba.jpg" alt="Arreglo de barba" onerror="this.remove()"><span>barba</span></figure>
+  </section>
+
+  <div class="stripe" aria-hidden="true"></div>
+
+  <section class="about">
+    <svg class="badge" viewBox="0 0 400 400" role="img" aria-label="Logo de Bosco's Peluqueros"><use href="#badge"/></svg>
+    <div>
+      <p class="about__lead">Bosco's es una peluquería de caballeros de las de siempre, en pleno barrio de Triana.</p>
+      <p>Te atiende Bosco. Hay poco hueco, así que mejor coge cita con antelación.</p>
+    </div>
   </section>
 
   <section id="precios" class="block">
@@ -68,8 +113,7 @@
       <li><span class="prices__name">Arreglo de barba</span><span class="prices__dots"></span><span class="prices__val">10 €</span></li>
       <li><span class="prices__name">Corte infantil <small>hasta 12 años</small></span><span class="prices__dots"></span><span class="prices__val">12 €</span></li>
       <li><span class="prices__name">Rapado</span><span class="prices__dots"></span><span class="prices__val">10 €</span></li>
-      <li><span class="prices__name">Color / mechas</span><span class="prices__dots"></span><span class="prices__val">desde 25 €</span></li>
-    </ul>
+          </ul>
     <p class="note">Los precios y servicios actualizados están siempre en Booksy.</p>
   </section>
 
@@ -79,8 +123,7 @@
       <p>Lo más rápido es Booksy: ves los huecos libres y te llega un recordatorio. Si prefieres hablar con nosotros, mándanos un WhatsApp.</p>
     </div>
     <div class="book__opts">
-      <!-- EDITAR: BOOKSY_URL -->
-      <a class="opt" href="BOOKSY_URL" target="_blank" rel="noopener">
+      <a class="opt" href="https://booksy.com/es-es/instant-experiences/widget/757?instant_experiences_enabled=true" target="_blank" rel="noopener">
         <span class="opt__label">Booksy</span>
         <span class="opt__sub">Elige día y hora</span>
         <span class="opt__arrow" aria-hidden="true">→</span>
@@ -107,33 +150,30 @@
     </div>
     <div id="donde">
       <h2 class="block__title"><span>03</span>Dónde</h2>
-      <!-- EDITAR: dirección -->
       <address class="addr">
-        Calle Ejemplo, 12<br>
-        00000 Ciudad
+        Calle Alfarería, 113<br>
+        41010 Triana, Sevilla
       </address>
       <a class="link" href="https://maps.app.goo.gl/zXMAfhCzEWNtkZ9c7" target="_blank" rel="noopener">Abrir en Google Maps →</a>
     </div>
   </section>
 
   <div class="map">
-    <!-- EDITAR: pon la dirección exacta en q= para que el mapa apunte bien -->
-    <iframe title="Mapa de Bosco Peluqueros" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-      src="https://www.google.com/maps?q=Bosco%20Peluqueros&output=embed"></iframe>
+    <iframe title="Mapa de Bosco's Peluqueros" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.google.com/maps?q=Calle%20Alfarer%C3%ADa%20113%2C%2041010%20Sevilla&output=embed"></iframe>
   </div>
 
 </main>
 
 <footer class="foot">
-  <span>Bosco Peluqueros</span>
-  <!-- EDITAR: Instagram -->
-  <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
+  <span>Bosco's Peluqueros · Calle Alfarería 113, Sevilla</span>
+  <a href="https://www.instagram.com/boscopeluqueros/" target="_blank" rel="noopener">@boscopeluqueros</a>
   <span>© <span id="y">2026</span></span>
 </footer>
 
 <!-- Barra fija en móvil -->
 <div class="mbar">
-  <a href="BOOKSY_URL" target="_blank" rel="noopener">Booksy</a>
+  <a href="https://booksy.com/es-es/instant-experiences/widget/757?instant_experiences_enabled=true" target="_blank" rel="noopener">Booksy</a>
   <a href="https://wa.me/34600000000?text=Hola%2C%20quer%C3%ADa%20pedir%20cita" target="_blank" rel="noopener">WhatsApp</a>
 </div>
 
