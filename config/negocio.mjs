@@ -83,11 +83,11 @@ export default {
   fotos: {
     portada: null, // ej.: { src: 'img/local/bosco-cortando.jpg', webp: '…webp', ancho: 1200, alto: 1500, alt: 'Bosco cortando el pelo a un cliente en el local' }
     local: [],
-    mostrarIlustrativas: false,
+    mostrarIlustrativas: true,
     ilustrativas: [
       { src: 'img/ilustrativas/degradado-maquinilla.jpg', webp: 'img/ilustrativas/degradado-maquinilla.webp', ancho: 960, alto: 960, alt: '', posicion: '60% 50%' },
       { src: 'img/ilustrativas/afeitado-navaja.jpg', webp: 'img/ilustrativas/afeitado-navaja.webp', ancho: 960, alto: 960, alt: '', posicion: '50% 55%' },
-      { src: 'img/ilustrativas/herramientas-barbero.jpg', webp: 'img/ilustrativas/herramientas-barbero.webp', ancho: 960, alto: 960, alt: '', posicion: '50% 50%' },
+      { src: 'img/ilustrativas/herramientas-barbero.jpg', webp: 'img/ilustrativas/herramientas-barbero.webp', ancho: 800, alto: 800, alt: '', posicion: '50% 50%' },
     ],
   },
 

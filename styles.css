@@ -235,7 +235,8 @@ a { color: inherit; }
 .local__fotos {
   grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); gap: 12px; margin-top: 16px;
 }
-.local__fotos .foto { aspect-ratio: 1 / 1; }
+.local__fotos .foto { aspect-ratio: 4 / 3; }
+@media (max-width: 480px) { .local__fotos .foto { aspect-ratio: 1 / 1; } }
 
 /* Reservar */
 .reservar { background: var(--marino); color: var(--crema); }
