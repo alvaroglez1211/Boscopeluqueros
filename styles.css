@@ -221,3 +221,6 @@ a { color: inherit; }
   .badge { width: 180px; }
   .photos .ph--tall { grid-column: span 2; grid-row: auto; }
 }
+
+.hours tr.is-today th, .hours tr.is-today td { font-weight: 700; }
+.hours tr.is-today th::after { content: "hoy"; margin-left: 8px; font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--red); font-weight: 600; }

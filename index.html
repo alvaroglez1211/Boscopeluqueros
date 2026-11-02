@@ -18,7 +18,6 @@
   DATOS QUE HAY QUE CAMBIAR (busca "EDITAR" en este archivo):
   - Enlace de Booksy            -> https://booksy.com/es-es/instant-experiences/widget/757?instant_experiences_enabled=true
   - Teléfono de WhatsApp        -> 34600000000 (con prefijo, sin + ni espacios)
-  - Horario
   ============================================================
 -->
 
@@ -101,12 +100,14 @@
   <section id="horario" class="block block--split">
     <div>
       <h2 class="block__title"><span>02</span>Horario</h2>
-      <!-- EDITAR: horario real -->
       <table class="hours">
-        <tr><th>Lunes</th><td>Cerrado</td></tr>
-        <tr><th>Martes – Viernes</th><td>10:00 – 14:00<br>16:30 – 20:30</td></tr>
-        <tr><th>Sábado</th><td>9:30 – 14:00</td></tr>
-        <tr><th>Domingo</th><td>Cerrado</td></tr>
+        <tr data-d="1"><th>Lunes</th><td>10:00 – 14:30<br>16:00 – 19:30</td></tr>
+        <tr data-d="2"><th>Martes</th><td>10:00 – 14:30<br>16:00 – 19:30</td></tr>
+        <tr data-d="3"><th>Miércoles</th><td>10:00 – 14:00<br>17:00 – 20:00</td></tr>
+        <tr data-d="4"><th>Jueves</th><td>10:00 – 14:30<br>16:00 – 19:30</td></tr>
+        <tr data-d="5"><th>Viernes</th><td>10:00 – 14:30<br>16:00 – 19:00</td></tr>
+        <tr data-d="6"><th>Sábado</th><td>Cerrado</td></tr>
+        <tr data-d="0"><th>Domingo</th><td>Cerrado</td></tr>
       </table>
     </div>
     <div id="donde">
@@ -138,6 +139,11 @@
   <a href="https://wa.me/34600000000?text=Hola%2C%20quer%C3%ADa%20pedir%20cita" target="_blank" rel="noopener">WhatsApp</a>
 </div>
 
-<script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+<script>
+  var now = new Date();
+  document.getElementById('y').textContent = now.getFullYear();
+  var row = document.querySelector('.hours tr[data-d="' + now.getDay() + '"]');
+  if (row) row.classList.add('is-today');
+</script>
 </body>
 </html>
